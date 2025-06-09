@@ -1,3 +1,51 @@
+#Extera Explaination : 
+
+That's an interesting result! The recommendations you're getting (Saving Private Ryan, Casablanca, Titanic, Pulp Fiction, Jurassic Park) are quite different from what was expected in the comment (other sci-fi movies like Inception and Interstellar).
+
+## Analysis of the Results
+
+The fact that The Matrix is being recommended these classic blockbuster movies instead of sci-fi films suggests a few possibilities:
+
+### 1. **Rating Pattern Similarity**
+The NMF algorithm is finding movies that have similar user rating patterns to The Matrix, rather than similar genres. This means:
+- Users who rated The Matrix highly also tend to rate these other movies highly
+- The recommendation is based on collaborative filtering (user behavior) rather than content-based filtering (movie attributes)
+
+### 2. **Popular Movie Bias**
+All the recommended movies are:
+- Highly acclaimed blockbusters
+- Movies that tend to receive high ratings from many users
+- Cross-genre appeal films
+
+This suggests the model might be biased toward recommending generally popular movies rather than genre-specific ones.
+
+### 3. **Training Data Characteristics**
+The recommendations indicate that in your training dataset:
+- Users who like The Matrix also tend to like these classic films
+- There might not be enough sci-fi movie data or user ratings to create strong sci-fi clusters
+- The feature space learned by NMF is capturing "high-quality blockbuster" patterns rather than genre patterns
+
+## Why This Happens
+
+NMF works by:
+1. Decomposing the user-movie rating matrix into latent factors
+2. Finding movies with similar factor representations
+3. The factors might represent "movie quality" or "mainstream appeal" rather than genre
+
+## Potential Improvements
+
+To get more genre-aware recommendations, you could:
+1. **Add genre information** to the model (hybrid approach)
+2. **Increase the number of components** in NMF to capture more nuanced patterns
+3. **Filter recommendations by genre** after getting the similarity scores
+4. **Use content-based features** alongside collaborative filtering
+
+The current results show the model is working correctly from a collaborative filtering perspective - it's finding movies that similar users tend to enjoy together, even if they're not in the same genre.
+        
+
+
+
+
 # Movie Recommendation System
 
 A lightweight, web-based movie recommendation system built with FastAPI and Scikit-learn. The application suggests movies to users based on item-to-item collaborative filtering using Non-negative Matrix Factorization (NMF).
@@ -163,50 +211,3 @@ The following endpoints are available:
 Distributed under the MIT License. See `LICENSE` for more information.
 
 
-Extera Explaination : 
-
-
-
-          
-That's an interesting result! The recommendations you're getting (Saving Private Ryan, Casablanca, Titanic, Pulp Fiction, Jurassic Park) are quite different from what was expected in the comment (other sci-fi movies like Inception and Interstellar).
-
-## Analysis of the Results
-
-The fact that The Matrix is being recommended these classic blockbuster movies instead of sci-fi films suggests a few possibilities:
-
-### 1. **Rating Pattern Similarity**
-The NMF algorithm is finding movies that have similar user rating patterns to The Matrix, rather than similar genres. This means:
-- Users who rated The Matrix highly also tend to rate these other movies highly
-- The recommendation is based on collaborative filtering (user behavior) rather than content-based filtering (movie attributes)
-
-### 2. **Popular Movie Bias**
-All the recommended movies are:
-- Highly acclaimed blockbusters
-- Movies that tend to receive high ratings from many users
-- Cross-genre appeal films
-
-This suggests the model might be biased toward recommending generally popular movies rather than genre-specific ones.
-
-### 3. **Training Data Characteristics**
-The recommendations indicate that in your training dataset:
-- Users who like The Matrix also tend to like these classic films
-- There might not be enough sci-fi movie data or user ratings to create strong sci-fi clusters
-- The feature space learned by NMF is capturing "high-quality blockbuster" patterns rather than genre patterns
-
-## Why This Happens
-
-NMF works by:
-1. Decomposing the user-movie rating matrix into latent factors
-2. Finding movies with similar factor representations
-3. The factors might represent "movie quality" or "mainstream appeal" rather than genre
-
-## Potential Improvements
-
-To get more genre-aware recommendations, you could:
-1. **Add genre information** to the model (hybrid approach)
-2. **Increase the number of components** in NMF to capture more nuanced patterns
-3. **Filter recommendations by genre** after getting the similarity scores
-4. **Use content-based features** alongside collaborative filtering
-
-The current results show the model is working correctly from a collaborative filtering perspective - it's finding movies that similar users tend to enjoy together, even if they're not in the same genre.
-        
