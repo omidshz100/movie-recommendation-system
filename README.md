@@ -1,10 +1,10 @@
-# Extera Explaination : 
+# Extera Explanation: 
 
 That's an interesting result! The recommendations you're getting (Saving Private Ryan, Casablanca, Titanic, Pulp Fiction, Jurassic Park) are quite different from what was expected in the comment (other sci-fi movies like Inception and Interstellar).
 
 ## Analysis of the Results
 
-The fact that The Matrix is being recommended these classic blockbuster movies instead of sci-fi films suggests a few possibilities:
+The fact that The Matrix is being recommended over these classic blockbuster movies instead of sci-fi films suggests a few possibilities:
 
 ### 1. **Rating Pattern Similarity**
 The NMF algorithm is finding movies that have similar user rating patterns to The Matrix, rather than similar genres. This means:
