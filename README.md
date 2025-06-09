@@ -1,115 +1,163 @@
-# 🎬 Movie Recommendation System
+# Movie Recommendation System
 
-A web-based movie recommendation system that provides AI-powered suggestions. This application allows users to browse a movie catalog, search for titles, and receive personalized recommendations based on the Non-negative Matrix Factorization (NMF) algorithm.
+A lightweight, web-based movie recommendation system built with FastAPI and Scikit-learn. The application suggests movies to users based on item-to-item collaborative filtering using Non-negative Matrix Factorization (NMF).
 
-The frontend is built with vanilla HTML, CSS, and JavaScript, and the backend is a RESTful API powered by Python and FastAPI.
+## Table of Contents
 
----
+- [About The Project](#about-the-project)
+  - [Built With](#built-with)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+- [Usage](#usage)
+- [Project Structure](#project-structure)
+- [API Reference](#api-reference)
+- [License](#license)
 
-## ✨ Features
+## About The Project
 
-- **Dynamic Movie Catalog**: Browse a grid of movies loaded directly from the database.
-- **Live Search**: Instantly filter movies by title, genre, or director.
-- **AI-Powered Recommendations**: Select any movie to get a list of similar titles based on collaborative filtering.
-- **Clean & Responsive UI**: A modern and easy-to-use interface.
-- **RESTful Backend**: A robust API serves all movie data and recommendation logic.
+This project provides a simple yet effective movie recommendation engine accessible through a clean, responsive web interface. Users can browse a list of movies, select one they are interested in, and receive a list of five similar movies.
 
----
+**Key Features:**
+* **AI-Powered Recommendations**: Utilizes Scikit-learn's NMF model to generate content-aware recommendations.
+* **RESTful API**: A backend built with FastAPI serves movie data and handles recommendation logic.
+* **Interactive Frontend**: A vanilla JavaScript single-page application for a smooth user experience.
+* **Search Functionality**: Allows users to filter the movie list by title, genre, or director.
 
-## 🧠 How It Works
+### Built With
 
-The recommendation engine uses **Non-negative Matrix Factorization (NMF)**, a collaborative filtering technique.
+This project was built with the following technologies:
 
-1.  **User-Movie Matrix**: The system first builds a matrix where rows represent users and columns represent movies. The cells contain user ratings.
-2.  **Factorization**: NMF breaks this large matrix down into two smaller matrices: one representing user features (e.g., preference for a genre) and another representing movie features.
-3.  **Similarity Calculation**: To find movies similar to a given movie, the system calculates the cosine similarity between that movie's feature vector and all other movies' feature vectors.
-4.  **Top Recommendations**: The movies with the highest similarity scores are then returned as recommendations.
+* **Backend**:
+    * [FastAPI](https://fastapi.tiangolo.com/)
+    * [Uvicorn](https://www.uvicorn.org/)
+* **Machine Learning**:
+    * [Scikit-learn](https://scikit-learn.org/)
+    * [Pandas](https://pandas.pydata.org/)
+    * [NumPy](https://numpy.org/)
+* **Database**:
+    * [SQLAlchemy](https://www.sqlalchemy.org/)
+    * [SQLite](https://www.sqlite.org/index.html)
+* **Frontend**:
+    * HTML5
+    * CSS3
+    * JavaScript (ES6)
 
----
+## Getting Started
 
-## ⚙️ Technologies Used
+To get a local copy up and running, follow these simple steps.
 
-| Category      | Technology                                       |
-| ------------- | ------------------------------------------------ |
-| **Backend** | Python, FastAPI, Uvicorn                         |
-| **Database** | SQLAlchemy, SQLite                               |
-| **ML/Data** | Scikit-learn, Pandas, NumPy                      |
-| **Frontend** | HTML, CSS, JavaScript                            |
+### Prerequisites
 
----
+You must have Python 3.7 or newer installed on your system.
 
-## 🚀 Getting Started
+### Installation
 
-Follow these instructions to set up and run the project locally.
+1.  **Clone the repository**
+    ```sh
+    git clone [https://github.com/omidshz100/movie-recommendation-system.git](https://github.com/omidshz100/movie-recommendation-system.git)
+    cd movie-recommendation-system
+    ```
 
-### 1. Prerequisites
+2.  **Create and activate a virtual environment**
+    ```sh
+    # On macOS/Linux
+    python3 -m venv venv
+    source venv/bin/activate
 
-- Python 3.7+
-- A tool for creating virtual environments (e.g., `venv`)
+    # On Windows
+    python -m venv venv
+    .\venv\Scripts\activate
+    ```
 
-### 2. Installation
+3.  **Install the required dependencies**
+    ```sh
+    pip install -r requirements.txt
+    ```
 
-First, clone the repository and navigate into the project's root directory.
+4.  **Set up the database**
+    This script creates `movies.db` and populates it with sample data. It will place the file in the project's root directory.
+    ```sh
+    python database/setup_db.py
+    ```
+    After creation, **move the `movies.db` file into the `api/` directory**.
+    ```sh
+    # On macOS/Linux
+    mv movies.db api/
 
-```bash
-git clone [https://github.com/omidshz100/movie-recommendation-system.git](https://github.com/omidshz100/movie-recommendation-system.git)
-cd movie-recommendation-system
+    # On Windows
+    move movies.db api\
+    ```
 
-Next, create and activate a Python virtual environment.
+5.  **Train the recommendation model**
+    This script trains the NMF model and saves it as `nmf_model.pkl` in the root directory.
+    ```sh
+    python ml/train_model.py
+    ```
+    After training, **move the `nmf_model.pkl` file into the `ml/` directory**.
+     ```sh
+    # On macOS/Linux
+    mv nmf_model.pkl ml/
 
-# For macOS/Linux
-python3 -m venv venv
-source venv/bin/activate
+    # On Windows
+    move nmf_model.pkl ml\
+    ```
 
-# For Windows
-python -m venv venv
-.\venv\Scripts\activate
+## Usage
 
-Install all the required packages from requirements.txt.
+Once the setup is complete, you can run the application.
 
-pip install -r requirements.txt
+1.  Navigate to the `api` directory:
+    ```sh
+    cd api
+    ```
 
-3. Project Setup
-The following steps are crucial to ensure the database and machine learning model are placed where the application expects to find them. Run all commands from the root directory of the project.
+2.  Start the Uvicorn server:
+    ```sh
+    uvicorn main:app --reload
+    ```
 
-Step 1: Create the Database
-Run the setup script. This will create a movies.db file in the root directory.
+3.  Open your web browser and go to `http://127.0.0.1:8000`.
 
-python database/setup_db.py
+You can now browse the movie catalog. Click on any movie card to see a list of recommendations at the bottom of the page.
 
-Now, copy the database into the api/ folder so the application can access it.
+## Project Structure
 
-# For macOS/Linux
-cp movies.db api/
 
-# For Windows
-copy movies.db api\
+movie-recommendation-system/
+│
+├── api/
+│   ├── static/
+│   │   ├── index.html
+│   │   ├── style.css
+│   │   └── script.js
+│   ├── main.py             # FastAPI application logic
+│   └── movies.db           # SQLite database file
+│
+├── database/
+│   ├── models.py           # SQLAlchemy ORM models
+│   └── setup_db.py         # Script to initialize the database
+│
+├── ml/
+│   ├── nmf_recommender.py  # NMF model and recommendation logic
+│   ├── train_model.py      # Script to train and save the model
+│   └── nmf_model.pkl       # Saved scikit-learn model
+│
+├── .gitignore
+├── README.md
+└── requirements.txt
 
-Step 2: Train the ML Model
-Run the training script. This script reads the movies.db file from the root and creates a model file named nmf_model.pkl.
 
-python ml/train_model.py
+## API Reference
 
-Now, move the trained model into the ml/ folder so the application can use it.
+The following endpoints are available:
 
-# For macOS/Linux
-mv nmf_model.pkl ml/
+| Method | Endpoint                       | Description                                |
+| ------ | ------------------------------ | ------------------------------------------ |
+| `GET`  | `/`                            | Serves the HTML frontend.                  |
+| `GET`  | `/movies`                      | Retrieves a list of all movies.            |
+| `GET`  | `/recommendations/{movie_id}`  | Gets recommendations for a specific movie. |
 
-# For Windows
-move nmf_model.pkl ml\
+## License
 
-4. Run the Application
-With the setup complete, change into the api directory and start the web server.
-
-cd api
-uvicorn main:app --reload
-
-You can now access the application by navigating to https://www.google.com/search?q=http://127.0.0.1:8000 in your web browser.
-
-📦 API Endpoints
-The backend provides the following API endpoints:
-Method	Path	Description
-GET	/	Serves the main index.html frontend.
-GET	/movies	Returns a JSON list of all movies.
-GET	/recommendations/{movie_id}	Returns recommendations for a given movie_id.
-GET	/static/*	Serves static files (CSS, JS).
+Distributed under the MIT License. See `LICENSE` for more information.
